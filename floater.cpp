@@ -28,9 +28,15 @@ void floater::printNumber()
 
 void floater::__printBits(const char* signBit, std::string& exponentBits, std::string& fractionBits)
 {
-	cout << signBit << "  " << exponentBits << "  " << fractionBits << endl;
+	if (__includeSignBit)
+		cout << signBit << "  ";
 
-	cout << "^+ ^ex";
+	cout << exponentBits << "  " << fractionBits << endl;
+
+	if (__includeSignBit)
+		cout << "^+ ";
+
+	cout << "^ex";
 
 	for (size_t i = 0; i < exponentBits.length() - 1; i++)
 		cout << " ";
@@ -73,7 +79,7 @@ string floater::__getFractionBits(uint nFr, double adjustedNumber) {
 
 double floater::__adjustNumber(double number, int& exponent) {
 	exponent = 0;
-	double adjustedNumber = number;
+	double adjustedNumber = abs(number);
 	while (adjustedNumber >= 2) {
 		adjustedNumber /= 2;
 		exponent += 1;
